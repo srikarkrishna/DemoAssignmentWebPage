@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="http://demos.telerik.com/kendo-ui/grid/custom-command">
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.2.504/styles/kendo.common.min.css"/>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.2.504/styles/kendo.rtl.min.css"/>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.2.504/styles/kendo.silver.min.css"/>
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.2.504/styles/kendo.mobile.all.min.css"/>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2017.2.504/js/jszip.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2017.2.504/js/kendo.all.min.js"></script>
+</head>
+<body>
+
+   <script src="../content/shared/js/people.js"></script>
+<div id="bord" style="border: 2px solid black;">
+    <div id="padd">  
+
+      <div class="container">
+  <span>Facility : </span>
+  <div class="btn-group">
+    <button id="b1" type="button" class="btn btn-primary">GC-27</button>
+    <button id="b2" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#"></a></li>
+      <li><a href="#"></a></li>
+    </ul>
+  </div>
+</div>
+  <div id="bor" style="border: 2px solid black;">
+    <div id="pad">  
+  
+       
+        <div id="example" style="width:63%;" style="border:1px solid black;">
+            <div id="grid"></div>
+
+            <div id="details"></div>
+
+            <script>
+                var wnd,
+                    detailsTemplate;
+
+                $(document).ready(function () {
+                    var grid = $("#grid").kendoGrid({
+                        dataSource: {
+                           data: createRandomData(30)
+                        },
+                        height: 600,
+                        columns: [
+                            {  field: "Chemical", title: "Chemical"},
+                            { field: "Tank", title: "Tank"},
+                               { command: { text: "....", click: showDetails },field:" Calculation",title:"Calculation" },
+                          { field:"Calculation_Type",title:"Calculation Type"},
+                          {field:"Status",title:"Status"}
+                          
+]
+                    }).data("kendoGrid");
+
+                    wnd = $("#details")
+                        .kendoWindow({
+                            title: "Details",
+                            modal: true,
+                            visible: false,
+                            resizable: false,
+                            width: 300
+                        }).data("kendoWindow");
+
+                   detailsTemplate = kendo.template($("#template").html());
+                });
+
+                function showDetails(e) {
+                    e.preventDefault();
+
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    wnd.content(detailsTemplate(dataItem));
+                    wnd.center().open();
+                }
+            </script>
+
+            <script type="text/x-kendo-template" id="template">
+                <div id="details-container"
+                
+                </div>
+            </script>
+
+            <style type="text/css">
+                #details-container
+                {
+                    padding: 10px;
+                }
+
+                #details-container h2
+                {
+                    margin: 0;
+                }
+
+                #details-container em
+                {
+                    color: #8c8c8c;
+                }
+
+                #details-container dt
+                {
+                    margin:0;
+                    display: inline;
+                }
+               .k-button
+              {
+                width: 95%;
+              }
+              .k-grid
+              {
+                background-color:#ffffff;
+              }
+
+              .k-grid
+              {
+                  border-top-style:single;
+                  border-top-width:thick;
+                  border-color:black;
+               }
+              div.k-grid-header
+              {
+                padding-right: 0px;
+                border-color: black;
+                border-right-color: black;
+              }
+              
+             .k-header
+              {
+                color:black;
+                font-size: 1.2vm;
+                font-style: bold;
+                background-color: #808080;
+                border-color: black;
+              }
+              .k-grid-header-wrap
+              {
+                border-color: black;
+              }
+              .k-grid-table
+              {
+                border-color: black;
+              }
+              .k-grid td
+              {
+                border-color: black;
+              }
+
+               .button
+              {
+                color:black;
+                background-color: #eeeee0;
+              
+                padding: 6px 8px;
+                border: 2px solid black;
+                border-radius: 8px;
+                margin: 15px 0px;
+              }
+              #bb1
+              {
+                position: absolute;
+                top:95%;
+                left:66%; 
+              }
+              #bb2
+              {
+                position: absolute;
+                top:95%;
+                left:72.5%; 
+              }
+              #bb3
+              {
+                position: absolute;
+                top:95%;
+                left:77.5%; 
+              }
+              #pad
+              {
+                padding: 15px 10px 60px 15px;
+              }
+              
+              #padd
+              {
+                padding: 20px 15px 15px 40px;
+                margin:10px;
+              }
+              .container
+              {
+                margin: 10px 15px;
+                font-size:110%;
+              }
+              #b1,#b2
+              {
+                color:black;
+                background-color:white;
+                font-style:bold;
+                border-color:black;
+                border:2px solid black;
+              }
+
+            </style>
+        
+      <button id="bb1" class="button"> Refresh </button>
+      <button id="bb2"class="button">Save</a>
+      <button id="bb3"class="button">Cancel</button>
+     </div> 
+ </div>
+</div>
+</div>
+</div>
+</body>
+</html>
